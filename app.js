@@ -1,18 +1,23 @@
-// Soal 1 (Basic)
-function bagiDua(angka){
-   return new Promise(function(resolve, rejected) {
-    if(angka % 2 == 0){
-      resolve(angka / 2);
-    } else {
-      rejected("Angka harus genap");
-    }
-   });
+// Soal 2 (Chaining)
+function ambilBuah() {
+  return new Promise(function (resolve) {
+    setTimeout(function () { resolve("Apel"); }, 1000);
+  });
 }
 
-bagiDua(10)
-  .then((num) => {
-    console.log("Hasil bagi 2: ", num);
+function masakBuah(buah) {
+  return new Promise(function (resolve) {
+    setTimeout(function () { resolve(buah + " Jus"); }, 1000);
+  });
+}
+
+ambilBuah()
+  .then((take) => {
+    return masakBuah(take);
+  })
+  .then((buah) => {
+    console.log(buah);
   })
   .catch((error) => {
-    console.log(error);
+    console.log("Gagal mengambil buah.");
   });
