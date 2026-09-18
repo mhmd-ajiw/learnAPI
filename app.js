@@ -19,5 +19,10 @@ async function pesanBarang() {
     console.error(err);
   }
 }
-
 pesanBarang()
+
+// Soal 2 (Sequential vs Parallel)
+// saya tidak memahami cara menjawab soal ini
+
+// Soal 3 (Prediksi Output)
+// Output : A B D C E
