@@ -1,17 +1,33 @@
-// Soal 1
-const mobil = {
-    merek : "Toyota",
-    model : "Avanza",
-    tahun : 2023,
-};
+// Latihan 1
+async function dataAPI() {
+    try{
+        const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
 
-const mobilJSON = JSON.stringify(mobil);
-console.log(mobilJSON);
-console.log(typeof mobilJSON);
+        if(!response.ok) {throw new Error(`Error status: ${response.status}`)};
+        const result = await response.json();
+        console.log(`name : ${result.name}`);
+        console.log(`email: ${result.email}`);
+    } catch(err) {
+        console.error(err.message);
+    }
+}
+dataAPI();
 
-const mobilJS = JSON.parse(mobilJSON);
-console.log(mobilJS);
-console.log(typeof mobilJS);
-
-// Soal 2
-// output : {"nama":"Laptop","harga":8000000,"spek":{"ram":"16GB","storage":"512GB"}}
+// Latihan 2
+async function data2API() {
+  try {
+    const res = await fetch("https://jsonplaceholder.typicode.com/users/9999"); 
+    if (!res.ok) {                                                              
+      throw new Error(`Server merespons dengan status ${res.status}`);          
+    }
+    const hasil = await res.json();
+    console.log(hasil);
+  } catch (err) {
+    if (err instanceof TypeError) {                    
+      console.error("Tidak dapat terhubung ke server:", err.message);
+    } else {
+      console.error(err.message);                      
+    }
+  }
+}
+data2API();
