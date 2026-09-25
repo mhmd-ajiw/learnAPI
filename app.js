@@ -1,33 +1,24 @@
-// Latihan 1
-async function dataAPI() {
-    try{
-        const response = await fetch("https://jsonplaceholder.typicode.com/users/1");
-
-        if(!response.ok) {throw new Error(`Error status: ${response.status}`)};
-        const result = await response.json();
-        console.log(`name : ${result.name}`);
-        console.log(`email: ${result.email}`);
-    } catch(err) {
-        console.error(err.message);
-    }
-}
-dataAPI();
-
-// Latihan 2
-async function data2API() {
+async function main(){
   try {
-    const res = await fetch("https://jsonplaceholder.typicode.com/users/9999"); 
-    if (!res.ok) {                                                              
-      throw new Error(`Server merespons dengan status ${res.status}`);          
-    }
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+    if(!res.ok) {throw new Error(`Server merespons dengan status ${res.status}`)}
     const hasil = await res.json();
-    console.log(hasil);
-  } catch (err) {
-    if (err instanceof TypeError) {                    
-      console.error("Tidak dapat terhubung ke server:", err.message);
-    } else {
-      console.error(err.message);                      
-    }
+
+    const data = hasil
+      .filter( function(p) {return p.userId === 3})
+      .slice(0, 5)
+      .map((p) => p.title);
+    
+    const jumlahData = hasil.reduce((acc, n) => {
+      acc[n.userId] = (acc[n.userId] || 0) + 1;
+      return acc;
+    }, {});
+    console.log(`Total User ID : ${jumlahData}`);
+
+  } catch(err){
+    console.error("ERROR:", err.message);
   }
+
 }
-data2API();
+
+main()
